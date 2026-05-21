@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll-Stop Prompts — Vitamin-C Foaming Facewash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-body: 'Archivo', sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --lime: #BFF549;
+      --bg: #02040a;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.06);
+      --text-secondary: #99A1AF;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    ::selection { background-color: var(--lime); color: #000; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--lime); }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb-1 {
+      position: fixed; top: -15%; left: -10%; width: 700px; height: 700px;
+      background: var(--lime); border-radius: 50%; filter: blur(280px);
+      opacity: 0.06; pointer-events: none; z-index: 0;
+      animation: orbFloat 20s ease-in-out infinite;
+    }
+
+    .bg-orb-2 {
+      position: fixed; bottom: -15%; right: -10%; width: 500px; height: 500px;
+      background: #FACC15; border-radius: 50%; filter: blur(220px);
+      opacity: 0.05; pointer-events: none; z-index: 0;
+      animation: orbFloat 25s ease-in-out infinite reverse;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(40px, 25px); }
+    }
+
+    .confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+
+    .app {
+      position: relative; z-index: 1; display: flex; flex-direction: column;
+      height: 100vh; max-width: 960px; margin: 0 auto; padding: 2rem 2rem 0; width: 100%;
+    }
+
+    .header { text-align: center; padding: 1.5rem 0 1.75rem; flex-shrink: 0; }
+
+    .header-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.9rem; margin-bottom: 1rem; border-radius: 980px;
+      border: 1px solid rgba(191, 245, 73, 0.3); background: rgba(191, 245, 73, 0.05);
+      color: var(--lime); font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.2em; backdrop-filter: blur(10px);
+    }
+    .header-badge svg { width: 12px; height: 12px; }
+
+    .header h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 900;
+      letter-spacing: -0.06em; line-height: 0.9; margin-bottom: 0.75rem;
+    }
+    .header h1 .lime { color: var(--lime); }
+    .header h1 .faded {
+      background: linear-gradient(to right, #fff, rgba(255,255,255,0.4));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .header p {
+      font-size: 0.95rem; color: var(--text-secondary); max-width: 500px;
+      margin: 0 auto; line-height: 1.5; font-weight: 300;
+    }
+
+    .tabs-row { display: flex; gap: 0.5rem; flex-shrink: 0; margin-bottom: 1.25rem; }
+
+    .tab {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      padding: 0.85rem 1rem; border-radius: 20px; border: 1px solid var(--card-border);
+      background: var(--card-bg); color: var(--text-secondary); font-size: 0.82rem;
+      font-weight: 600; cursor: pointer; transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative; overflow: hidden;
+    }
+    .tab::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.35s ease; border-radius: 20px; }
+    .tab[data-tab="A"]::before { background: linear-gradient(135deg, rgba(191,245,73,0.12), transparent); }
+    .tab[data-tab="B"]::before { background: linear-gradient(135deg, rgba(96,165,250,0.12), transparent); }
+    .tab[data-tab="C"]::before { background: linear-gradient(135deg, rgba(250,204,21,0.12), transparent); }
+    .tab:hover { border-color: rgba(255,255,255,0.12); color: #fff; transform: translateY(-1px); }
+    .tab:hover::before { opacity: 1; }
+    .tab.active { border-color: rgba(255,255,255,0.15); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .tab.active::before { opacity: 1; }
+
+    .tab .tab-letter {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 10px; font-size: 0.75rem;
+      font-weight: 900; font-family: var(--font-display); flex-shrink: 0; transition: all 0.35s ease;
+    }
+    .tab[data-tab="A"] .tab-letter { background: rgba(191,245,73,0.2); color: var(--lime); }
+    .tab[data-tab="B"] .tab-letter { background: rgba(96,165,250,0.2); color: #60a5fa; }
+    .tab[data-tab="C"] .tab-letter { background: rgba(250,204,21,0.2); color: #FACC15; }
+    .tab.active[data-tab="A"] .tab-letter { background: var(--lime); color: #000; }
+    .tab.active[data-tab="B"] .tab-letter { background: #60a5fa; color: #000; }
+    .tab.active[data-tab="C"] .tab-letter { background: #FACC15; color: #000; }
+    .tab .tab-name { position: relative; z-index: 1; }
+
+    .prompt-panel {
+      flex: 1; min-height: 0; display: flex; flex-direction: column;
+      background: linear-gradient(145deg, rgba(12,14,22,0.92), rgba(6,8,14,0.95));
+      border: 1px solid var(--card-border); border-radius: 28px 28px 0 0; overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.75rem; border-bottom: 1px solid var(--card-border); flex-shrink: 0;
+    }
+    .panel-header-left { display: flex; align-items: center; gap: 0.75rem; }
+
+    .panel-icon {
+      width: 36px; height: 36px; border-radius: 11px; display: flex;
+      align-items: center; justify-content: center; font-size: 0.9rem;
+      font-weight: 900; font-family: var(--font-display); flex-shrink: 0; transition: all 0.35s ease;
+    }
+    .panel-icon.a { background: var(--lime); color: #000; }
+    .panel-icon.b { background: #60a5fa; color: #000; }
+    .panel-icon.c { background: #FACC15; color: #000; }
+
+    .panel-meta .panel-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-secondary); font-weight: 700; }
+    .panel-meta .panel-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; margin-top: 1px; }
+    .panel-header-right { display: flex; align-items: center; gap: 0.5rem; }
+
+    .instruction-tag {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.3rem 0.75rem; border-radius: 980px; font-size: 0.65rem; font-weight: 600; white-space: nowrap;
+    }
+    .instruction-tag.img { background: rgba(191,245,73,0.08); color: var(--lime); border: 1px solid rgba(191,245,73,0.15); }
+    .instruction-tag.vid { background: rgba(250,204,21,0.08); color: #FACC15; border: 1px solid rgba(250,204,21,0.15); }
+    .instruction-tag svg { width: 11px; height: 11px; }
+
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.15rem;
+      border-radius: 980px; border: 1px solid var(--card-border); background: transparent;
+      color: var(--text-secondary); font-size: 0.78rem; font-weight: 600; cursor: pointer;
+      transition: all 0.25s ease; font-family: var(--font-body);
+    }
+    .copy-btn:hover { background: var(--lime); color: #000; border-color: var(--lime); transform: scale(1.03); }
+    .copy-btn.copied { background: var(--lime); color: #000; border-color: var(--lime); }
+    .copy-btn svg { width: 14px; height: 14px; }
+
+    .panel-body { flex: 1; min-height: 0; position: relative; }
+    .prompt-content { display: none; position: absolute; inset: 0; opacity: 0; transform: translateY(8px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .prompt-content.active { display: block; opacity: 1; transform: translateY(0); }
+
+    .prompt-text {
+      font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.8;
+      color: rgba(255,255,255,0.72); white-space: pre-wrap; word-break: break-word;
+      padding: 1.75rem; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch;
+    }
+    .prompt-text::-webkit-scrollbar { width: 6px; }
+    .prompt-text::-webkit-scrollbar-track { background: transparent; }
+    .prompt-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+
+    @media (max-width: 640px) {
+      .app { padding: 1.25rem 1rem 0; }
+      .header { padding: 1rem 0 1.25rem; }
+      .header h1 { font-size: clamp(1.5rem, 8vw, 2.2rem); }
+      .header p { font-size: 0.85rem; }
+      .tab { padding: 0.7rem 0.5rem; font-size: 0.72rem; border-radius: 16px; }
+      .tab .tab-name { display: none; }
+      .tab .tab-letter { width: 32px; height: 32px; font-size: 0.85rem; }
+      .tab .tab-subtitle { display: block; font-size: 0.65rem; color: var(--text-secondary); margin-top: 2px; }
+      .panel-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; padding: 1rem 1.25rem; }
+      .panel-header-right { width: 100%; justify-content: space-between; }
+      .prompt-text { padding: 1.25rem; font-size: 0.73rem; line-height: 1.7; }
+      .prompt-panel { border-radius: 22px 22px 0 0; }
+      .instruction-tag { font-size: 0.6rem; }
+    }
+    @media (min-width: 641px) { .tab .tab-subtitle { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orb-1"></div>
+  <div class="bg-orb-2"></div>
+  <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+
+  <div class="app">
+    <header class="header">
+      <div class="header-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Scroll-Stop Prompter
+      </div>
+      <h1>VITAMIN-C <span class="faded">FOAMING FACEWASH</span> <span class="lime">PROMPTS.</span></h1>
+      <p>Click a tab, hit copy, get confetti. Three prompts for scroll-stopping content.</p>
+    </header>
+
+    <div class="tabs-row">
+      <button class="tab active" data-tab="A" onclick="switchTab('A')">
+        <span class="tab-letter">A</span>
+        <span class="tab-name">Hero Bottle Shot</span>
+        <span class="tab-subtitle">Hero</span>
+      </button>
+      <button class="tab" data-tab="B" onclick="switchTab('B')">
+        <span class="tab-letter">B</span>
+        <span class="tab-name">Foam Eruption</span>
+        <span class="tab-subtitle">Foam</span>
+      </button>
+      <button class="tab" data-tab="C" onclick="switchTab('C')">
+        <span class="tab-letter">C</span>
+        <span class="tab-name">Video Transition</span>
+        <span class="tab-subtitle">Video</span>
+      </button>
+    </div>
+
+    <div class="prompt-panel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <div class="panel-icon a" id="panelIcon">A</div>
+          <div class="panel-meta">
+            <div class="panel-label" id="panelLabel">Prompt A &mdash; Image Generator</div>
+            <div class="panel-title" id="panelTitle">Hero Bottle Shot</div>
+          </div>
+        </div>
+        <div class="panel-header-right">
+          <div class="instruction-tag img" id="panelTag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span id="panelTagText">16:9 &middot; Image Generator</span>
+          </div>
+          <button class="copy-btn" id="copyBtn" onclick="copyCurrentPrompt()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div class="panel-body">
+        <div class="prompt-content active" id="contentA">
+          <div class="prompt-text">PROMPT A — HERO BOTTLE SHOT (ASSEMBLED, PRISTINE)
+
+Professional product photography of a premium Vitamin-C foaming facewash bottle, centered in frame, shot from a slight 3/4 angle (camera at product label height, rotated ~15 degrees). The bottle is a tall, sleek cylindrical pump dispenser — frosted translucent glass body with a soft citrus-orange tint that glows from within, a polished matte-white pump cap with a clean chrome collar, and a minimal modern typographic label that reads "VITAMIN C" in bold sans-serif with a smaller "FOAMING FACEWASH" tagline beneath. A single elegant orange citrus slice graphic accents the label.
+
+The bottle is pristine, brand-new, completely sealed. The pump nozzle is clean and dry — not a single drop of foam anywhere. The product sits on an invisible surface with a soft, diffused contact shadow directly beneath it (no harsh edges).
+
+Background: pure white #FFFFFF, no gradient, no vignette, no environment — pure white void extending to infinity.
+
+Lighting: soft studio strobe with a large overhead softbox and white bounce cards on both sides. Subtle, even, premium-skincare lighting. Gentle highlight rolling down the curved glass on the left edge, faint reflection of the room implied on the right shoulder of the bottle. Backlight rim glow gives the citrus-tinted glass a warm inner luminance.
+
+Style: photorealistic, ultra-clean, Apple-meets-Glossier product photography. 16:9 aspect ratio, product catalog quality, ultra-sharp focus across the full bottle from cap to base. Material accuracy is critical: the glass should look genuinely frosted (not plastic), the cap should look matte (not glossy), the label should look printed (not sticker-applied).
+
+Shot on Phase One IQ4 150MP, 120mm macro lens, f/8, 1/200s, ISO 100, focus-stacked. Ultra-sharp detail, 8K rendering downsampled to 4K. No text overlays, no watermarks, no other objects in frame, no human hands, no water droplets, no foam.</div>
+        </div>
+        <div class="prompt-content" id="contentB">
+          <div class="prompt-text">PROMPT B — FOAM ERUPTION (FROZEN MID-EXPLOSION)
+
+Professional high-speed product photography of the SAME premium Vitamin-C foaming facewash bottle from Prompt A — same frosted citrus-tinted glass, same matte-white pump cap with chrome collar, same "VITAMIN C / FOAMING FACEWASH" label, same exact 3/4 camera angle and lighting. The bottle is stationary and identical, centered in frame.
+
+The hero moment: a massive, luxurious eruption of pristine white foam is exploding upward and outward from the pump nozzle in a frozen mid-action splash. Captured at 1/10000 second shutter — every individual bubble is razor-sharp.
+
+The foam composition (vivid detail):
+- A thick, billowing column of dense whipped-cream-textured lather rising 2x the height of the bottle, mushrooming outward at the top
+- Thousands of perfectly round translucent bubbles in the cluster, ranging from pinhead-tiny to marble-sized, catching warm citrus-orange light on their curved surfaces
+- A halo of individual bubbles flying outward in all directions — some streaking with motion blur trails, others perfectly suspended
+- A few elongated foam tendrils arcing gracefully like soft ribbons, peeling off the main column
+- Tiny droplets of creamy product fluid (slightly thicker than water, faintly orange) flicking outward at the periphery, frozen in flight as perfect spheres
+- Subtle iridescent rainbow refractions inside the largest bubbles where light bends through soap film
+- A faint citrus-mist haze surrounding the eruption — implying the fresh, energizing burst of vitamin C
+
+The bottle itself is pristine and untouched at the base — no foam clinging to the body, no overflow down the sides. All the action is happening above the pump nozzle. The foam erupts straight up and bursts outward at the apex.
+
+Background: pure white #FFFFFF, no gradient, no vignette — pure white void. The foam reads cleanly against white because of soft shadow contouring on each bubble cluster.
+
+Lighting: identical setup to Prompt A — soft overhead softbox, white bounce sides, gentle backlight rim. The lighting glances across the foam to give every bubble dimensional shading without losing the bright white character. Faint warm citrus-orange undertone in the foam highlights, picked up from the bottle's tint.
+
+Style: photorealistic, hyper-detailed, freeze-frame product cinematography. Think TVC commercial for a premium skincare brand — Lancome, Tatcha, La Mer level polish. Every bubble in sharp focus, no motion blur on the bottle, motion streaks only on the outermost flying droplets. 16:9 aspect ratio.
+
+Shot on Phase One IQ4 150MP, 120mm macro lens, f/11 for full depth, 1/10000s strobe-synced flash freeze, ISO 100, focus-stacked across the foam volume. Ultra-sharp, 8K downsampled to 4K. No text, no logos beyond the existing label, no hands, no other objects.</div>
+        </div>
+        <div class="prompt-content" id="contentC">
+          <div class="prompt-text">PROMPT C — VIDEO TRANSITION (Start Frame -> End Frame)
+
+START FRAME: The pristine Vitamin-C foaming facewash bottle from Prompt A — clean, sealed, no foam, centered on pure white background, soft contact shadow beneath. Product is completely still.
+
+END FRAME: The same bottle from Prompt B — a massive, billowing white foam eruption frozen at its peak above the pump nozzle, thousands of bubbles suspended mid-air, citrus-mist halo, all on pure white background.
+
+TRANSITION: A satisfying, ASMR-grade product activation sequence.
+
+Beat 1 (0.0s - 0.6s) — Hold. The bottle sits perfectly still. Camera locked off. Subtle anticipation — a faint warm light bloom passes across the label as if charging up.
+
+Beat 2 (0.6s - 1.0s) — Pump press. The matte-white pump cap depresses smoothly downward by about 8mm, with a gentle mechanical compression — no human hand visible (the pump moves on its own as if magic). A faint hiss-fizz sound implied.
+
+Beat 3 (1.0s - 1.4s) — First foam emerges. A small soft dome of pristine white lather blooms out of the nozzle, slowly at first, like cream rising. The foam glows with subtle warm citrus undertone.
+
+Beat 4 (1.4s - 3.5s) — The eruption. The foam accelerates dramatically into a slow-motion explosion — billowing, cascading upward and outward, individual bubbles separating from the main column and floating outward in graceful arcs. Filmed at 480fps and played back smoothly. Each bubble catches light. Tiny product droplets flick outward and hang suspended. The foam mushrooms into the final frozen pose.
+
+Beat 5 (3.5s - 5.5s) — Hero hold. The full foam eruption holds at its peak in a frozen, sculptural moment — every bubble suspended in air, gently rotating in place, the slightest ambient drift. The bottle below remains pristine and still. Holds for the cinematic beauty shot.
+
+STYLE: Photorealistic, white background throughout, consistent studio lighting matching Prompts A and B. NO camera movement — locked-off tripod shot from start to finish. The only motion is the pump press and the foam eruption. Slow-motion grandeur, premium skincare commercial aesthetic — think SK-II, Lancome, La Mer. Satisfying, weightless, dreamlike.
+
+DURATION: 5.5 seconds total.
+ASPECT RATIO: 16:9
+QUALITY: 24fps minimum (60fps preferred), high fidelity, no artifacts, no flicker, no compression banding on the foam highlights.
+
+REVERSE VARIANT (optional): Run the same animation backwards — foam eruption collapsing back into the bottle, pump rising, returning to pristine. Equally hypnotic, perfect for scroll-up direction.
+
+LOOP VARIANT (optional): Play forward then reverse seamlessly for an infinite scroll-driven loop.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiPieces = [];
+    let confettiAnimating = false;
+
+    function resizeConfetti() { confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
+    resizeConfetti();
+    window.addEventListener('resize', resizeConfetti);
+
+    const confettiColors = ['#BFF549', '#FACC15', '#60a5fa', '#f472b6', '#a78bfa', '#34d399', '#fb923c', '#fff'];
+
+    function launchConfetti() {
+      confettiPieces = [];
+      for (let i = 0; i < 150; i++) {
+        confettiPieces.push({
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 200, y: window.innerHeight / 2,
+          vx: (Math.random() - 0.5) * 20, vy: -(Math.random() * 18 + 6),
+          w: Math.random() * 10 + 5, h: Math.random() * 6 + 3,
+          color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+          rotation: Math.random() * 360, rotationSpeed: (Math.random() - 0.5) * 15,
+          gravity: 0.35 + Math.random() * 0.15, opacity: 1,
+          decay: 0.008 + Math.random() * 0.008, shape: Math.random() > 0.5 ? 'rect' : 'circle'
+        });
+      }
+      if (!confettiAnimating) { confettiAnimating = true; animateConfetti(); }
+    }
+
+    function animateConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      let alive = 0;
+      for (const p of confettiPieces) {
+        if (p.opacity <= 0) continue;
+        alive++;
+        p.x += p.vx; p.vy += p.gravity; p.y += p.vy; p.vx *= 0.99;
+        p.rotation += p.rotationSpeed; p.opacity -= p.decay;
+        confettiCtx.save();
+        confettiCtx.translate(p.x, p.y);
+        confettiCtx.rotate((p.rotation * Math.PI) / 180);
+        confettiCtx.globalAlpha = Math.max(0, p.opacity);
+        confettiCtx.fillStyle = p.color;
+        if (p.shape === 'rect') { confettiCtx.fillRect(-p.w/2, -p.h/2, p.w, p.h); }
+        else { confettiCtx.beginPath(); confettiCtx.arc(0, 0, p.w/2, 0, Math.PI*2); confettiCtx.fill(); }
+        confettiCtx.restore();
+      }
+      if (alive > 0) { requestAnimationFrame(animateConfetti); }
+      else { confettiAnimating = false; confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); }
+    }
+
+    const tabsData = {
+      A: { label: 'Prompt A &mdash; Image Generator', title: 'Hero Bottle Shot', iconClass: 'a', tagClass: 'img',
+        tagIcon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>',
+        tagText: '16:9 &middot; Image Generator' },
+      B: { label: 'Prompt B &mdash; Image Generator', title: 'Foam Eruption', iconClass: 'b', tagClass: 'img',
+        tagIcon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>',
+        tagText: '16:9 &middot; Reference Prompt A' },
+      C: { label: 'Prompt C &mdash; Video Model', title: 'Video Transition', iconClass: 'c', tagClass: 'vid',
+        tagIcon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+        tagText: 'Start: A &middot; End: B' }
+    };
+
+    let currentTab = 'A';
+
+    function switchTab(tab) {
+      if (tab === currentTab) return;
+      currentTab = tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');
+      const info = tabsData[tab];
+      const icon = document.getElementById('panelIcon');
+      icon.textContent = tab; icon.className = 'panel-icon ' + info.iconClass;
+      document.getElementById('panelLabel').innerHTML = info.label;
+      document.getElementById('panelTitle').textContent = info.title;
+      const tag = document.getElementById('panelTag');
+      tag.className = 'instruction-tag ' + info.tagClass;
+      tag.innerHTML = info.tagIcon + ' <span>' + info.tagText + '</span>';
+      const btn = document.getElementById('copyBtn');
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy';
+      document.querySelectorAll('.prompt-content').forEach(c => c.classList.remove('active'));
+      requestAnimationFrame(() => { document.getElementById('content' + tab).classList.add('active'); });
+    }
+
+    function copyCurrentPrompt() {
+      const content = document.querySelector('.prompt-content.active .prompt-text');
+      const text = content.textContent;
+      const btn = document.getElementById('copyBtn');
+      navigator.clipboard.writeText(text).then(() => {
+        launchConfetti();
+        btn.classList.add('copied');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy';
+        }, 2000);
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '1') switchTab('A');
+      if (e.key === '2') switchTab('B');
+      if (e.key === '3') switchTab('C');
+      if ((e.metaKey || e.ctrlKey) && e.key === 'c' && !window.getSelection().toString()) { e.preventDefault(); copyCurrentPrompt(); }
+    });
+  </script>
+</body>
+</html>
