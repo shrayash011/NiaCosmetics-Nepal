@@ -2766,152 +2766,6 @@
   }
 
   /* ═══════════════════════════════════════════════════════════
-     FOUNDER'S NOTE — personal beat that adds brand intimacy
-     Sits between Results and Testimonials.
-     ═══════════════════════════════════════════════════════════ */
-  #founder {
-    padding: 160px 32px 140px;
-    position: relative;
-    z-index: 1;
-    background:
-      radial-gradient(ellipse at 30% 30%, rgba(212, 165, 116, 0.08), transparent 55%),
-      radial-gradient(ellipse at 70% 80%, rgba(15, 76, 58, 0.10), transparent 55%),
-      transparent;
-  }
-  .founder-inner {
-    max-width: 1080px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .founder-portrait-wrap {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    border-radius: 28px;
-    overflow: hidden;
-    background:
-      radial-gradient(ellipse at 30% 30%, rgba(232, 199, 149, 0.4), transparent 70%),
-      radial-gradient(ellipse at 70% 70%, rgba(15, 76, 58, 0.35), transparent 70%),
-      linear-gradient(160deg, #2A1F12 0%, #1A1108 100%);
-    border: 1px solid rgba(var(--gold-rgb), 0.2);
-  }
-  .founder-portrait-mark {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .founder-portrait-mark .initials {
-    width: 38%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background:
-      radial-gradient(circle at 30% 30%, rgba(255, 230, 200, 0.5), transparent 65%),
-      linear-gradient(135deg, var(--gold-light), var(--gold) 50%, #B8895A);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #1A1108;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: clamp(2rem, 5vw, 3.6rem);
-    letter-spacing: -0.02em;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5),
-                inset 0 -8px 20px rgba(120, 70, 30, 0.3);
-  }
-  .founder-portrait-tag {
-    position: absolute;
-    bottom: 28px; left: 28px; right: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    padding-top: 18px;
-    border-top: 1px solid rgba(var(--gold-rgb), 0.25);
-  }
-  .founder-portrait-tag .meta {
-    color: var(--gold);
-  }
-  .founder-copy {
-    position: relative;
-  }
-  .founder-copy .section-eyebrow,
-  .founder-copy .section-title {
-    text-align: left;
-  }
-  .founder-copy .section-title {
-    font-size: clamp(1.8rem, 4.2vw, 3.2rem);
-    line-height: 1.05;
-    margin-bottom: 28px;
-  }
-  .founder-body {
-    color: var(--text-secondary);
-    font-size: 1.02rem;
-    line-height: 1.75;
-  }
-  .founder-body p { margin-bottom: 16px; }
-  .founder-body p:last-of-type { margin-bottom: 0; }
-  .founder-body strong {
-    color: var(--text);
-    font-weight: 500;
-  }
-  .founder-body em {
-    color: var(--gold);
-    font-style: italic;
-    font-weight: 400;
-  }
-  .founder-sign {
-    margin-top: 36px;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-    display: flex;
-    align-items: center;
-    gap: 18px;
-  }
-  .founder-sign-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 500;
-    font-size: 1.15rem;
-    color: var(--text);
-    letter-spacing: -0.01em;
-  }
-  .founder-sign-role {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-  .founder-sign-mark {
-    flex-shrink: 0;
-    font-family: 'Space Grotesk', sans-serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 2rem;
-    color: var(--gold);
-    line-height: 1;
-    transform: rotate(-4deg);
-    border: 1px dashed rgba(var(--gold-rgb), 0.4);
-    padding: 12px 18px;
-    border-radius: 14px;
-  }
-  @media (max-width: 768px) {
-    #founder { padding: 110px 22px 90px; }
-    .founder-inner { grid-template-columns: 1fr; gap: 40px; }
-    .founder-portrait-wrap { max-width: 380px; margin: 0 auto; width: 100%; }
-    .founder-sign { gap: 12px; }
-    .founder-sign-mark { font-size: 1.6rem; padding: 10px 14px; }
-  }
-
-  /* ═══════════════════════════════════════════════════════════
      FAQ — accordion that handles last-mile objections
      Reuses the ingredient-accordion visual pattern but with its
      own row class so opening one doesn't close the other.
@@ -3973,84 +3827,113 @@
       <li class="ingredient-row">
         <div class="ingredient-head">
           <span class="ingredient-num">01</span>
-          <span class="ingredient-name">L-Ascorbic Acid <em>Vitamin C</em></span>
-          <span class="ingredient-pct">20%</span>
+          <span class="ingredient-name">Ascorbic Acid <em>Vitamin C</em></span>
+          <span class="ingredient-pct">Active</span>
           <span class="ingredient-toggle">+</span>
         </div>
         <div class="ingredient-detail">
           <div class="ingredient-detail-inner">
-            <p>The most potent, clinically-validated form of Vitamin C. <strong>L-AA</strong> directly inhibits melanin synthesis, neutralises free radicals, and stimulates collagen — the trio responsible for visible brightness.</p>
-            <p>We stabilise it at <strong>pH 3.5</strong> (the optimal absorption window) and seal it under nitrogen to keep oxidation at bay. Yellowing serum? Not on our watch.</p>
+            <p>The headline active. Pure Vitamin C — directly inhibits melanin synthesis, neutralises free radicals, and supports collagen production. This is the brightening engine of the serum.</p>
+            <p>We pair it with <strong>Ascorbyl Glucoside and Ferulic Acid</strong> so the brightening works the moment you apply it <em>and</em> keeps working long after.</p>
           </div>
         </div>
       </li>
       <li class="ingredient-row">
         <div class="ingredient-head">
           <span class="ingredient-num">02</span>
-          <span class="ingredient-name">Citrus Bioflavonoids <em>cold-pressed</em></span>
-          <span class="ingredient-pct">5%</span>
+          <span class="ingredient-name">Ascorbyl Glucoside <em>stable Vit-C</em></span>
+          <span class="ingredient-pct">Active</span>
           <span class="ingredient-toggle">+</span>
         </div>
         <div class="ingredient-detail">
           <div class="ingredient-detail-inner">
-            <p>Real orange-derived bioflavonoids extend Vitamin C's half-life and amplify its antioxidant power — the synergy your skin recognises because it's how the molecule exists in nature.</p>
-            <p>Pressed at <strong>4 °C within 24 hours of harvest</strong> from Nagpur and Coorg oranges. Heat-extracted alternatives lose 60% of activity. We don't compromise.</p>
+            <p>A gentler, time-released cousin of L-Ascorbic Acid. Skin enzymes slowly cleave the glucose tail, releasing fresh Vitamin C over hours — so the brightening works long after application.</p>
+            <p>Pairing pure Ascorbic Acid with this derivative gives the formula both <strong>fast-acting and slow-release</strong> brightening in the same drop.</p>
           </div>
         </div>
       </li>
       <li class="ingredient-row">
         <div class="ingredient-head">
           <span class="ingredient-num">03</span>
-          <span class="ingredient-name">Hyaluronic Acid <em>multi-weight</em></span>
-          <span class="ingredient-pct">2%</span>
-          <span class="ingredient-toggle">+</span>
-        </div>
-        <div class="ingredient-detail">
-          <div class="ingredient-detail-inner">
-            <p>Three molecular weights of HA work at three depths: large molecules plump the surface, mid-weight smooths fine lines, low-weight penetrates and signals long-term hydration repair.</p>
-            <p>This is the layer that makes high-dose Vitamin C feel <strong>cushioned, never tight</strong>.</p>
-          </div>
-        </div>
-      </li>
-      <li class="ingredient-row">
-        <div class="ingredient-head">
-          <span class="ingredient-num">04</span>
-          <span class="ingredient-name">Niacinamide <em>Vitamin B3</em></span>
-          <span class="ingredient-pct">3%</span>
-          <span class="ingredient-toggle">+</span>
-        </div>
-        <div class="ingredient-detail">
-          <div class="ingredient-detail-inner">
-            <p>The steady multitasker. Refines pore appearance, evens tone, calms redness, and reinforces the skin barrier — letting the other actives do their work without irritation.</p>
-            <p>Stable across the full pH range, so it plays nicely with our acidic Vitamin C system.</p>
-          </div>
-        </div>
-      </li>
-      <li class="ingredient-row">
-        <div class="ingredient-head">
-          <span class="ingredient-num">05</span>
           <span class="ingredient-name">Ferulic Acid <em>plant antioxidant</em></span>
-          <span class="ingredient-pct">0.5%</span>
+          <span class="ingredient-pct">Stabiliser</span>
           <span class="ingredient-toggle">+</span>
         </div>
         <div class="ingredient-detail">
           <div class="ingredient-detail-inner">
-            <p>The unsung hero of every great Vitamin C serum. Ferulic acid <strong>stabilises L-AA</strong>, doubling its photoprotection and extending shelf life by months.</p>
+            <p>The unsung hero of every great Vitamin C serum. Ferulic acid <strong>stabilises the Ascorbic Acid</strong>, extends its photoprotection, and amplifies the antioxidant network.</p>
             <p>If you've used a Vitamin C product that turned brown in a week — it didn't have ferulic. Ours does.</p>
           </div>
         </div>
       </li>
       <li class="ingredient-row">
         <div class="ingredient-head">
-          <span class="ingredient-num">06</span>
-          <span class="ingredient-name">Squalane <em>plant-derived</em></span>
-          <span class="ingredient-pct">1%</span>
+          <span class="ingredient-num">04</span>
+          <span class="ingredient-name">Tocopheryl Acetate <em>Vitamin E</em></span>
+          <span class="ingredient-pct">Antioxidant</span>
           <span class="ingredient-toggle">+</span>
         </div>
         <div class="ingredient-detail">
           <div class="ingredient-detail-inner">
-            <p>Ultra-light, non-comedogenic emollient. Mimics your skin's own sebum, locks in everything above it, and gives the formula its silky, never-greasy finish.</p>
-            <p>Sourced from sugarcane fermentation — never shark liver. Vegan, sustainable, and identical at the molecular level.</p>
+            <p>Vitamin E completes the antioxidant trio (with Vitamin C + Ferulic Acid). It quenches free radicals that Vitamin C can't reach, and the two regenerate each other in your skin.</p>
+            <p>The Tocopheryl Acetate ester is the <strong>shelf-stable form</strong> — your skin converts it to active Vitamin E on contact.</p>
+          </div>
+        </div>
+      </li>
+      <li class="ingredient-row">
+        <div class="ingredient-head">
+          <span class="ingredient-num">05</span>
+          <span class="ingredient-name">Sodium Hyaluronate <em>hydration</em></span>
+          <span class="ingredient-pct">Humectant</span>
+          <span class="ingredient-toggle">+</span>
+        </div>
+        <div class="ingredient-detail">
+          <div class="ingredient-detail-inner">
+            <p>The salt form of Hyaluronic Acid — same hydration power, better penetration. It binds up to <strong>1,000× its weight in water</strong> and pulls it into the skin.</p>
+            <p>This is the layer that makes the formula feel <em>cushioned, never tight</em>, even with high-dose Vitamin C.</p>
+          </div>
+        </div>
+      </li>
+      <li class="ingredient-row">
+        <div class="ingredient-head">
+          <span class="ingredient-num">06</span>
+          <span class="ingredient-name">Licorice Root <em>Glycyrrhiza glabra</em></span>
+          <span class="ingredient-pct">Botanical</span>
+          <span class="ingredient-toggle">+</span>
+        </div>
+        <div class="ingredient-detail">
+          <div class="ingredient-detail-inner">
+            <p>A botanical brightener that works alongside the Vitamin C system. Licorice root extract inhibits tyrosinase (the enzyme that produces melanin) and <strong>visibly evens pigmentation</strong> over time.</p>
+            <p>Bonus: it's calming. Helps quiet redness and sensitivity that high-dose actives can occasionally trigger.</p>
+          </div>
+        </div>
+      </li>
+      <li class="ingredient-row">
+        <div class="ingredient-head">
+          <span class="ingredient-num">07</span>
+          <span class="ingredient-name">Aloe + Muskmelon <em>soothing botanicals</em></span>
+          <span class="ingredient-pct">Botanical</span>
+          <span class="ingredient-toggle">+</span>
+        </div>
+        <div class="ingredient-detail">
+          <div class="ingredient-detail-inner">
+            <p><strong>Aloe vera</strong> calms the formula's acidic base and adds barrier-supporting polysaccharides — the same reason it's been used for cosmetic skin care for centuries.</p>
+            <p><strong>Cucumis melo (Muskmelon) extract</strong> is rich in superoxide dismutase, a powerful enzyme antioxidant. It backs up the Vitamin C system against environmental oxidative stress.</p>
+          </div>
+        </div>
+      </li>
+      <li class="ingredient-row">
+        <div class="ingredient-head">
+          <span class="ingredient-num">08</span>
+          <span class="ingredient-name">Supporting cast <em>functional ingredients</em></span>
+          <span class="ingredient-pct">Formula</span>
+          <span class="ingredient-toggle">+</span>
+        </div>
+        <div class="ingredient-detail">
+          <div class="ingredient-detail-inner">
+            <p>Every formulation needs supporting ingredients. Here's full transparency on what else is in the bottle and why:</p>
+            <p><strong>Purified Water</strong> — solvent base. <strong>Propylene Glycol</strong> — humectant that helps actives penetrate. <strong>Sodium Citrate &amp; Triethanolamine</strong> — pH balancers (we target pH 3.5 for optimal Vit-C absorption). <strong>Hydroxyethylcellulose</strong> — natural thickener that gives the serum its silky texture.</p>
+            <p><strong>Sodium Gluconate &amp; Trisodium Ethylenediamine Disuccinate</strong> — chelators that bind trace metals to prevent oxidation. <strong>Sodium Metabisulfite</strong> — antioxidant preservative that keeps actives stable. <strong>Phenoxyethanol</strong> — broad-spectrum preservative at safe cosmetic concentration. <strong>Fragrance</strong> — light, fresh, citrus-clean.</p>
           </div>
         </div>
       </li>
@@ -4106,59 +3989,6 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     FOUNDER'S NOTE — origin story, the human beat
-     ═══════════════════════════════════════════════════════════ -->
-<section id="founder">
-  <div class="founder-inner">
-    <div class="founder-portrait-wrap" aria-hidden="true">
-      <div class="founder-portrait-mark">
-        <div class="initials">SR</div>
-      </div>
-      <div class="founder-portrait-tag">
-        <span>Founder &middot; Kathmandu</span>
-        <span class="meta">EST. 2024</span>
-      </div>
-    </div>
-    <div class="founder-copy">
-      <div class="section-eyebrow">A note from the founder</div>
-      <h2 class="section-title">Why we made <span class="accent">this.</span></h2>
-      <div class="founder-body">
-        <p>
-          Two years ago I went looking for an honest Vitamin C serum in Kathmandu.
-          What I found was either <em>imported, oxidised, and overpriced</em>, or local
-          and under-formulated. So I started researching what an actually-good
-          serum looks like — and quickly fell down the rabbit hole.
-        </p>
-        <p>
-          <strong>20% L-Ascorbic Acid. Pharmaceutical glass. Nitrogen-flushed.
-          Cold-pressed citrus from Nagpur and Coorg orchards.</strong> The list
-          of "what makes a real Vitamin C serum work" is short, and we don't
-          cut a single corner on it.
-        </p>
-        <p>
-          Nia is a small team — three of us, working between a clean lab in
-          <strong>Bangalore</strong> (where every batch is formulated and sealed)
-          and our office in <strong>Kathmandu</strong> (where every order goes out).
-          The same hands touch every bottle. No marketing budget — what you're reading
-          is it.
-        </p>
-        <p>
-          If the serum works for you, tell a friend. If it doesn't, write to me —
-          <a href="mailto:hello@niacosmetic.in" style="color: var(--gold-light); border-bottom: 1px solid rgba(212,165,116,0.3); text-decoration: none;">hello@niacosmetic.in</a>.
-          That promise is real, and I read every email.
-        </p>
-      </div>
-      <div class="founder-sign">
-        <div class="founder-sign-mark">Shrayash</div>
-        <div>
-          <div class="founder-sign-name">Shrayash R.</div>
-          <div class="founder-sign-role">Founder · Nia Cosmetics</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════════════════════════════════════════════════════
      PINNED TESTIMONIALS — sticky stage with cross-fading quotes
@@ -4599,7 +4429,6 @@
       <h4>About</h4>
       <ul>
         <li><a href="#manifesto">Our story</a></li>
-        <li><a href="#founder">Founder's note</a></li>
         <li><a href="#ingredients">Ingredients</a></li>
         <li><a href="#results">Real results</a></li>
         <li><a href="#testimonials">Reviews</a></li>
